@@ -32,6 +32,15 @@ public class AuthController {
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
+
+    /**
+     * 添加到api接口测试
+     * https://doc.xiaominfo.com/guide/useful.html
+     * @param principal
+     * @param parameters
+     * @return
+     * @throws HttpRequestMethodNotSupportedException
+     */
     @ApiOperation("Oauth2获取token")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "grant_type", value = "授权模式", required = true),
@@ -43,6 +52,7 @@ public class AuthController {
     })
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     public CommonResult<Oauth2TokenDto> postAccessToken(@ApiIgnore Principal principal, @ApiIgnore @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        //Oauth2中获取token
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()
                 .token(oAuth2AccessToken.getValue())
